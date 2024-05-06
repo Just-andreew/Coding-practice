@@ -17,3 +17,11 @@ def hello_name(name):
 @helloworld_bp.route("/hellohtml")
 def html_hello():
     return render_template("hello.html")
+
+@helloworld_bp.route("/redirect")
+def redir():
+    return redirect("/hello")
+
+@helloworld_bp.errorhandler
+def handle_error(e):
+    # note that we set the error handler after
