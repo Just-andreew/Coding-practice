@@ -1,30 +1,32 @@
+import asyncio
 import time 
 
-def brewCoffee():
+async def brewCoffee():
     print("Coffee Brewing")
-    time.sleep(2)
-    print("Coffee Ready")
+    await asyncio.sleep(4)
+    print("Coffee Brewed")
     # Notify the user that the coffee is ready
     return "Coffee Ready"
 
-def toastBread():
+async def toastBread():
     print("Bread Toasting")
-    time.sleep(4)
-    print("Bread Ready")
+    await asyncio.sleep(3)
+    print("Bread Toasted")
     # Notify the user that the bread is ready
     return "Bread Ready"
 
-def main():
-    start_time = time.time 
+async def main():
+    print("loading")
+    start_time = time.time()
     
-    result_coffee = brewCoffee()
-    result_bread = toastBread()
+    batch = asyncio.gather(brewCoffee(), toastBread())
+    result_coffee, result_bread = await batch
 
-    end_time = time.time
+    end_time = time.time()
 
-    print(f"")
+    print(f"Result of brewCoffee: {result_coffee}")
+    print(f"Result of toastBread: {result_bread}")
+    # Print the time taken to complete the task
+    print(f"Total time taken: {end_time - start_time:.2f} seconds")
 
-    print(f"Time taken: {end_time - start_time}")
-
-    if __name__ == "__main__":
-        main()
+asyncio.run(main())
